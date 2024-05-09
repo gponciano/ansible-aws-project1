@@ -1,4 +1,16 @@
 ---
+- name: Include configuration in sudoers file
+  lineinfile:
+    path: /etc/sudoers
+    line: "{{ item }}"
+    insertafter: EOF
+    validate: '/usr/sbin/visudo -csf %s'
+  with_items:
+    - '%mygroup ALL=/usr/sbin/multipath'
+    - '%mygroup ALL=/usr/libexec/platform-python'
+    - '%mygroup ALL=/bin/echo'
+    - '%mygroup ALL=/bin/sh'
+
 - name: Install epel
   yum:
     name: epel-release
