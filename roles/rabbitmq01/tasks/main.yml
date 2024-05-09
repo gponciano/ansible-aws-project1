@@ -20,14 +20,13 @@
 
 - name: Download ncurses-compat-libs package
   get_url:
-    url: https://centos.pkgs.org/7/epel-x86_64/ncurses-compat-libs-6.0-8.20170212.el7.x86_64.rpm.html
-    dest: /home/ec2-user/ncurses-compat-libs.rpm
-    owner: root
+    url: https://almalinux.pkgs.org/9/almalinux-devel-aarch64/ncurses-compat-libs-6.2-10.20210508.el9.aarch64.rpm.html
+    dest: /home/ec2-user/ncurses-compat-libs-6.2-10.20210508.el9.aarch64.rpm
     group: root
     mode: '0755'
 
 - name: Install ncursescompatlibs
-  rpm:
+  yum:
     src: /home/ec2-user/ncurses-compat-libs.rpm
     state: present
 
