@@ -1,0 +1,27 @@
+- hosts: db01
+  become: yes
+  become_user: root
+  become_method: sudo
+  roles:
+    - db01
+
+- hosts: mc01
+  become: yes
+  become_user: root
+  become_method: sudo
+  roles:
+    - mc01
+
+- hosts: rabbitmq01
+  become: yes
+  become_user: root
+  become_method: sudo
+  roles:
+    - rabbitmq01
+
+- hosts: app01
+  become: yes
+  become_user: root
+  become_method: sudo
+  roles:
+    - app01
