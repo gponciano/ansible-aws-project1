@@ -15,7 +15,20 @@
 
 - name: Install Erlang dependencies
   yum:
-    name: ["openssl-libs", "ncurses-compat-libs"]
+    name: openssl-libs
+    state: present
+
+- name: Download ncurses-compat-libs package
+  get_url:
+    url: https://centos.pkgs.org/7/epel-x86_64/ncurses-compat-libs-6.0-8.20170212.el7.x86_64.rpm.html
+    dest: /home/ec2-user/ncurses-compat-libs.rpm
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Install ncurses-compat-libs
+  rpm:
+    src: /home/ec2-user/ncurses-compat-libs.rpm
     state: present
 
 - name: Install esl-erlang
