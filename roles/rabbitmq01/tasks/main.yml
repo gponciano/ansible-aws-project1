@@ -1,11 +1,17 @@
 ---
+- name: Creating directory 
+  ansible.builtin.file:
+    path: /home/ec2-user/
+    state: directory
+    mode: '0755'
+
 - name: Download esl-erlang package
   get_url:
     url: https://packages.erlang-solutions.com/erlang/rpm/centos/7/x86_64/esl-erlang_23.3.1-1~centos~7_amd64.rpm
-    dest: /home/admin/esl-erlang_23.3.1-1~centos~7_amd64.rpm
+    dest: /home/ec2-user/esl-erlang_23.3.1-1~centos~7_amd64.rpm
     owner: admin
     group: admin
-    mode: 0755
+    mode: '0755'
 
 - name: Install esl-erlang
   yum:
