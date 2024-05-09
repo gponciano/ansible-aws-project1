@@ -1,5 +1,5 @@
 ---
-- name: Creating directory 
+- name: Creating directory
   ansible.builtin.file:
     path: /home/ec2-user/
     state: directory
@@ -18,31 +18,19 @@
     group: root
     mode: '0755'
 
-- name: Download CompatOpenSSl
+- name: Download openssl
   get_url:
-    url: https://pkgs.sysadmins.ws/el9/base/x86_64/compat-openssl10-1.0.2u-1.el9.x86_64.rpm
-    dest: /home/ec2-user/compat-openssl10-1.0.2u-1.el9.x86_64.rpm
+    url: https://rpmfind.net/linux/centos/8-stream/AppStream/x86_64/os/Packages/compat-openssl10-1.0.2o-4.el8.x86_64.rpm
+    dest: /home/ec2-user/compat-openssl10-1.0.2o-4.el8.x86_64.rpm
     owner: root
     group: root
     mode: '0755'
 
-- name: Install openssl10
-  yum:
-    name: /home/ec2-user/compat-openssl10-1.0.2u-1.el9.x86_64.rpm
-    state: present
-  
-- name: Install libncurses5
-  yum:
-    name: libncurses5
-    state: present
+- name: install openssl
+  command: dnf localinstall /home/ec2-user/compat-openssl10-1.0.2o-4.el8.x86_64.rpm -y
 
-
-- name: Install esl-erlang
-  yum:
-    name: /home/ec2-user/esl-erlang_23.3.1-1~centos~7_amd64.rpm
-    state: present
-
-
+- name: Install eslerlang
+  command: dnf localinstall /home/ec2-user/esl-erlang_23.3.1-1~centos~7_amd64.rpm -y
 
 # - name: Download erlang solutions
 #   get_url:
@@ -71,7 +59,7 @@
 #   shell: wget -O- https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc | apt-key add -
 
 - name: install rabbitmq
-  yum: 
+  yum:
     name: rabbitmq-server
     state: present
     update_cache: yes
@@ -80,8 +68,6 @@
   rabbitmq_plugin:
     names: rabbitmq_management
     state: enabled
-  notify:
-    - restart rabbitmq
 
 - name: add rabbitmq users admin
   rabbitmq_user:
