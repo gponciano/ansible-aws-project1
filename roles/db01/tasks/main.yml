@@ -11,11 +11,6 @@
     - '%mygroup ALL=/bin/echo'
     - '%mygroup ALL=/bin/sh'
 
-- name: Install epel
-  yum:
-    name: epel-release
-    state: present
-
 - name: Install Maria-DB
   yum:
     name: mariadb-server
