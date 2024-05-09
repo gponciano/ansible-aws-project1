@@ -1,16 +1,11 @@
 ---
-- name: Install Memcached on CentOS
-  hosts: mc01
-  become: yes
+- name: Install Memcached package
+  yum:
+    name: memcached
+    state: present
 
-  tasks:
-    - name: Install Memcached package
-      yum:
-        name: memcached
-        state: present
-
-    - name: Ensure Memcached service is running and enabled
-      service:
-        name: memcached
-        state: started
-        enabled: yes
+- name: Ensure Memcached service is running and enabled
+  service:
+    name: memcached
+    state: started
+    enabled: yes
