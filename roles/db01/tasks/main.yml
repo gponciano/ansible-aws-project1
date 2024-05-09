@@ -1,0 +1,14 @@
+---
+- name: Install MySQL on CentOS
+  hosts: your_centos_host
+  become: yes
+
+  tasks:
+    - name: Install MySQL packages
+      yum:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - mysql-server
+        - mysql
+        
