@@ -13,10 +13,16 @@
     group: root
     mode: '0755'
 
+- name: Install Erlang dependencies
+  yum:
+    name: ["openssl-libs", "ncurses-compat-libs"]
+    state: present
+
 - name: Install esl-erlang
   yum:
     name: /home/ec2-user/esl-erlang_23.3.1-1~centos~7_amd64.rpm
     state: present
+
 # - name: Download erlang solutions
 #   get_url:
 #     url: https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb
