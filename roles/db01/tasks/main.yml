@@ -1,14 +1,23 @@
 ---
 - name: Install MySQL on CentOS
-  hosts: your_centos_host
+  hosts: db01
   become: yes
 
   tasks:
-    - name: Install MySQL packages
+    - name: Install epel
       yum:
-        name: "{{ item }}"
+        name: epel-release
         state: present
-      loop:
-        - mysql-server
-        - mysql
-        
+
+    - name: Install Maria-DB
+      yum:
+        name: mariabdb-server
+        state: present
+
+    - name: Start mariadb service
+      service:
+        name: mariadb
+        state: started
+        enabled: yes
+
+      
