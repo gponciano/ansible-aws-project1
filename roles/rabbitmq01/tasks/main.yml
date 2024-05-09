@@ -1,21 +1,16 @@
 ---
-- name: Install RabbitMQ on CentOS
-  hosts: rabbitmq01
-  become: yes
+- name: Install Erlang
+  yum:
+    name: erlang
+    state: present
 
-  tasks:
-    - name: Install Erlang
-      yum:
-        name: erlang
-        state: present
+- name: Install RabbitMQ package
+  yum:
+    name: rabbitmq-server
+    state: present
 
-    - name: Install RabbitMQ package
-      yum:
-        name: rabbitmq-server
-        state: present
-
-    - name: Enable RabbitMQ service
-      systemd:
-        name: rabbitmq-server
-        enabled: yes
-        state: started
+- name: Enable RabbitMQ service
+  systemd:
+    name: rabbitmq-server
+    enabled: yes
+    state: started

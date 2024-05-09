@@ -1,23 +1,16 @@
 ---
-- name: Install MySQL on CentOS
-  hosts: db01
-  become: yes
+- name: Install epel
+  yum:
+    name: epel-release
+    state: present
 
-  tasks:
-    - name: Install epel
-      yum:
-        name: epel-release
-        state: present
+- name: Install Maria-DB
+  yum:
+    name: mariadb-server
+    state: present
 
-    - name: Install Maria-DB
-      yum:
-        name: mariabdb-server
-        state: present
-
-    - name: Start mariadb service
-      service:
-        name: mariadb
-        state: started
-        enabled: yes
-
-      
+- name: Start mariadb service
+  service:
+    name: mariadb
+    state: started
+    enabled: yes
