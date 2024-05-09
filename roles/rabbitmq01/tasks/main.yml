@@ -26,7 +26,7 @@
     group: root
     mode: '0755'
 
-- name: Install ncurses-compat-libs
+- name: Install ncursescompatlibs
   rpm:
     src: /home/ec2-user/ncurses-compat-libs.rpm
     state: present
