@@ -18,14 +18,17 @@
     group: root
     mode: '0755'
 
-- name: Install Erlang dependencies
-  yum:
-    name: openssl-libs
-    state: present
+- name: Download CompatOpenSSl
+  get_url:
+    url: https://pkgs.sysadmins.ws/el9/base/x86_64/compat-openssl10-1.0.2u-1.el9.x86_64.rpm
+    dest: /home/ec2-user/compat-openssl10-1.0.2u-1.el9.x86_64.rpm
+    owner: root
+    group: root
+    mode: '0755'
 
 - name: Install openssl10
   yum:
-    name: compat-openssl10
+    name: /home/ec2-user/compat-openssl10-1.0.2u-1.el9.x86_64.rpm
     state: present
   
 - name: Install libncurses5
