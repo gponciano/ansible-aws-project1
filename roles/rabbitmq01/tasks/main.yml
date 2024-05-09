@@ -1,16 +1,26 @@
 ---
-- name: Install Erlang
-  yum:
-    name: erlang
-    state: present
-
 - name: Install RabbitMQ package
   yum:
-    name: rabbitmq-server
+    name: install centos-release-rabbitmq-38
     state: present
 
 - name: Enable RabbitMQ service
-  systemd:
-    name: rabbitmq-server
+  service:
+    name:: rabbitmq-server
     enabled: yes
     state: started
+
+- name: Start Firewalld
+  service:
+     name: firewalld
+     state: started
+     enabled: yes
+     become: yes
+  
+- name: Enable Port 1234
+  firewalld:
+     zone: public
+     port: 5672/tcp
+     permanent: true
+     state: enabled
+     become: yes
