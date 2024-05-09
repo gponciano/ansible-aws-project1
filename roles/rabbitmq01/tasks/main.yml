@@ -1,14 +1,71 @@
 ---
-- name: Install RabbitMQ package
-  yum:
-    name: "install centos-release-rabbitmq-38"
-    state: present
+- name: Install nessesary package
+  yum: 
+      name: apt-transport-https
+      state: present
+      update_cache: yes
 
-- name: Enable RabbitMQ service
-  service:
-    name:: rabbitmq-server
-    enabled: yes
-    state: started
+- name: Download esl-erlang package
+  get_url:
+    url: https://packages.erlang-solutions.com/erlang/rpm/centos/7/x86_64/esl-erlang_23.3.1-1~centos~7_amd64.rpm
+    dest: /home/admin/esl-erlang_23.3.1-1~centos~7_amd64.rpm
+    owner: admin
+    group: admin
+    mode: 0755
+
+- name: Install esl-erlang
+  yum:
+    deb: /home/admin/esl-erlang_26.2.4_1~centos~8_x86_64.rpm
+
+# - name: Download erlang solutions
+#   get_url:
+#     url: https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb
+#     dest: /home/admin/erlang-solutions_1.0_all.deb
+#     owner: admin
+#     group: admin
+#     mode: 0755
+
+# - name: Install erlang repository
+#   yum:
+#     deb: /home/admin/erlang-solutions_1.0_all.deb
+
+# - name: Add an Apt signing key
+#   apt_key:
+#     url: https://packages.erlang-solutions.com/debian/erlang_solutions.asc
+#     state: present
+
+- name: fix unmet dependencies
+  shell: apt-get -f install
+
+- name: Add rabbit repo
+  shell: echo "deb https://dl.bintray.com/rabbitmq/debian stretch main" | tee /etc/apt/sources.list.d/bintray.rabbitmq.list
+
+- name: add trusted key
+  shell: wget -O- https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc | apt-key add -
+
+- name: install rabbitmq
+  apt: 
+    name: rabbitmq-server
+    state: present
+    update_cache: yes
+
+- name: enable rabbitmq plugins
+  rabbitmq_plugin:
+    names: rabbitmq_management
+    state: enabled
+  notify:
+    - restart rabbitmq
+
+- name: add rabbitmq users admin
+  rabbitmq_user:
+    user: admin
+    password: superpassword
+    vhost: /
+    tags: administrator
+    configure_priv: .*
+    read_priv: .*
+    write_priv: .*
+    state: present
 
 - name: Start Firewalld
   service:
