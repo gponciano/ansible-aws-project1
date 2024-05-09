@@ -1,0 +1,32 @@
+---
+- name: Playbook for db01
+  hosts: db01
+  become: yes
+  become_user: root
+  become_method: sudo
+  roles:
+    - role: db01
+
+- name: Playbook for mc01
+  hosts: mc01
+  become: yes
+  become_user: root
+  become_method: sudo
+  roles:
+    - role: mc01
+
+- name: Playbook for mq01
+  hosts: rabbitmq01
+  become: yes
+  become_user: root
+  become_method: sudo
+  roles:
+    - role: rabbitmq01
+
+- name: Playbook for app01
+  hosts: app01
+  become: yes
+  become_user: root
+  become_method: sudo
+  roles:
+    - role: app01
