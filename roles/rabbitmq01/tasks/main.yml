@@ -15,7 +15,7 @@
 
 - name: Install esl-erlang
   yum:
-    rpm: /home/admin/esl-erlang_26.2.4_1~centos~8_x86_64.rpm
+    rpm: /home/ec2-user/esl-erlang_23.3.1-1~centos~7_amd64.rpm
 
 # - name: Download erlang solutions
 #   get_url:
