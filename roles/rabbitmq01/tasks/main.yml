@@ -1,7 +1,7 @@
 ---
 - name: Install RabbitMQ package
   yum:
-    name: install centos-release-rabbitmq-38
+    name: "install centos-release-rabbitmq-38"
     state: present
 
 - name: Enable RabbitMQ service
@@ -12,15 +12,15 @@
 
 - name: Start Firewalld
   service:
-     name: firewalld
-     state: started
-     enabled: yes
-     become: yes
+    name: firewalld
+    state: started
+    enabled: yes
+    become: yes
   
 - name: Enable Port 1234
   firewalld:
-     zone: public
-     port: 5672/tcp
-     permanent: true
-     state: enabled
-     become: yes
+    zone: public
+    port: 5672/tcp
+    permanent: true
+    state: enabled
+    become: yes
