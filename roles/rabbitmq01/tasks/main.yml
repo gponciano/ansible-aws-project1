@@ -15,7 +15,7 @@
 
 - name: Install esl-erlang
   yum:
-    deb: /home/admin/esl-erlang_26.2.4_1~centos~8_x86_64.rpm
+    rpm: /home/admin/esl-erlang_26.2.4_1~centos~8_x86_64.rpm
 
 # - name: Download erlang solutions
 #   get_url:
@@ -44,7 +44,7 @@
 #   shell: wget -O- https://dl.bintray.com/rabbitmq/Keys/rabbitmq-release-signing-key.asc | apt-key add -
 
 - name: install rabbitmq
-  apt: 
+  yum: 
     name: rabbitmq-server
     state: present
     update_cache: yes
